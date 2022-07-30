@@ -1,0 +1,43 @@
+#!/bin/bash
+#PBS -q production
+#PBS -N ENM_WREN
+#PBS -m abe
+#PBS -M kprovost@amnh.org
+#PBS -l select=1:ncpus=4
+#PBS -l place=free
+#PBS -V
+
+module load r/3.3.3
+
+# change to the working directory 
+cd $PBS_O_WORKDIR
+echo "pbsworkdir"
+echo $PBS_O_WORKDIR
+
+#NPROCS=`wc -l < $PBS_NODEFILE`
+#NNODES=`uniq $PBS_NODEFILE | wc -l`
+
+EXECDIR=`pwd`
+export PATH=./:$PATH
+echo $PATH
+
+#echo $PBS_JOBID
+#echo Running on host `hostname`
+#echo Time is `date`
+#echo directory is `pwd`
+#echo using ${NPROCS} processors across ${NNODES} nodes
+
+TIMESTAMP=`date +"%s"`
+
+export OMP_NUM_THREADS=8
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_bellsvireo.R > spthin_vireo-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_blackthroatedsparrow.R > spthin_sparrow-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_phainopepla.R > spthin_phaino-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_pyrrhuloxia.R > spthin_pyrr-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_canyontowhee.R > spthin_towhee-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_curvebilledthrasher.R > spthin_thrasher-$TIMESTAMP.out 2>&1
+#Rscript /scratch/kaiya.provost/NicheModels/runSPthin_verdin.R > spthin_verdin-$TIMESTAMP.out 2>&1
+Rscript /scratch/kaiya.provost/NicheModels/runSPthin_cactuswren.R > spthin_wren-$TIMESTAMP.out 2>&1
+
+
+echo ">>>> Done!..."
